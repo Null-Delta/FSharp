@@ -1,7 +1,7 @@
 ﻿open Functions
 
-let answer lang =
-    match lang with
+let answer =
+    function
     | "F#" -> "Подлиза"
     | "Php" | "Python" -> "Кринж"
     | "Swift" -> "Сразу видно - хороший человек"
@@ -9,6 +9,7 @@ let answer lang =
 
 [<EntryPoint>]
 let main argv =
-    let lang = argv[0]
+    printfn "Какой твой любимый язык программирования?"
+    let lang = System.Console.ReadLine()
     printfn "%s"(answer lang)
     0
