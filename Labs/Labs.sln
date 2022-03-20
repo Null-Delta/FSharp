@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lab6", "Lab6", "{23397409-8
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "task11", "Lab6\task11\task11.fsproj", "{4CB9FCC5-3D58-4C8F-B3DA-DBC3A04E9FA1}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "task1_3", "Lab6\task1_3\task1_3.fsproj", "{F1296FC6-8587-4672-85CF-66216ED8A6E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,8 +28,13 @@ Global
 		{4CB9FCC5-3D58-4C8F-B3DA-DBC3A04E9FA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CB9FCC5-3D58-4C8F-B3DA-DBC3A04E9FA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CB9FCC5-3D58-4C8F-B3DA-DBC3A04E9FA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1296FC6-8587-4672-85CF-66216ED8A6E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1296FC6-8587-4672-85CF-66216ED8A6E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1296FC6-8587-4672-85CF-66216ED8A6E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1296FC6-8587-4672-85CF-66216ED8A6E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4CB9FCC5-3D58-4C8F-B3DA-DBC3A04E9FA1} = {23397409-8244-455B-ACC3-C2C026C680F1}
+		{F1296FC6-8587-4672-85CF-66216ED8A6E1} = {23397409-8244-455B-ACC3-C2C026C680F1}
 	EndGlobalSection
 EndGlobal

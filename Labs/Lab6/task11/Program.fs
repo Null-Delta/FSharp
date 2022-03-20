@@ -1,4 +1,4 @@
-﻿open Helper.Functions
+﻿open Functions
 
 let rec convert list (func: int -> int -> int -> int) =
     match list with 
@@ -14,6 +14,6 @@ let cond x y z =
 let main argv =
     let n = argv[0] |> int
     let list = readList n
-    
+
     printfn "%A"(convert list cond)
     0
