@@ -5,6 +5,11 @@ let rec listFilter (predicate: 'a -> bool) (list: 'a list) =
     | h::t -> if predicate h then h::(listFilter predicate t) else listFilter predicate t
     | _ -> []
 
+let rec listMap (predicate: 'a -> 'b) (list: 'a list) =
+    match list with
+    | h::t -> (predicate h)::(listMap predicate t)
+    | _ -> []
+
 let rec listValueAtIndex index (list: int list)=
     match index with
     | 0 -> list.Head
