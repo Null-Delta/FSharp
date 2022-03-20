@@ -12,6 +12,15 @@ let rec listValueAtIndex index (list: int list)=
         let newIndex = index - 1
         listValueAtIndex newIndex list.Tail
 
+let rec listMinIndex (list: 'a list) =      
+    let rec findMinIndex initValue list =
+        match list with
+        | [] -> initValue
+        | h::t -> 
+            let newValue = if h < initValue then h else initValue
+            findMinIndex newValue t
+    findMinIndex list.Head list
+    
 let rec readList size =
     if size = 0 then []
     else 
