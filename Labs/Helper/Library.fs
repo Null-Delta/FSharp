@@ -28,8 +28,22 @@ let rec listMinIndex (list: 'a list) =
     
 let rec readList size =
     if size = 0 then []
-    else 
+    else
         let head = System.Convert.ToInt32(System.Console.ReadLine())
         let tail = readList (size - 1)
         head::tail
 
+let rec listConvolution (func: 'a -> 'a -> 'a) (list: 'a list) =
+    match list with
+    | h::[] -> h
+    | h::t -> func h (listConvolution func t)
+
+let convolution (predicate: 'a -> bool) (func: 'a -> 'a -> 'a) a b =
+    let rec _convolution iter init =
+        match iter with 
+        | _ when iter = b -> if predicate b then func init b else init
+        | _ -> 
+            let newIter = iter + 1
+            let newInit = if predicate iter then func init iter else init
+            _convolution newIter newInit
+    _convolution a 0
