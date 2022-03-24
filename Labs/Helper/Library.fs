@@ -47,3 +47,6 @@ let convolution (predicate: 'a -> bool) (func: 'a -> 'a -> 'a) a b =
             let newInit = if predicate iter then func init iter else init
             _convolution newIter newInit
     _convolution a 0
+
+let NOD n m =
+    convolution (fun x -> m % x = 0 && n % x = 0) (fun x y -> y) 1 (max n m)

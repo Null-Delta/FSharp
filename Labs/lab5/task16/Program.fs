@@ -1,8 +1,4 @@
 ﻿open Functions
-
-let NOD n m =
-    convolution (fun x -> m % x = 0 && n % x = 0) (fun x y -> y) 1 (max n m)
-
     
 let Eiler n =
     convolution (fun v -> NOD v n = 1) (fun v1 v2 -> v1 + 1) 1 n
