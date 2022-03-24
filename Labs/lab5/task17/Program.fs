@@ -1,10 +1,10 @@
 ﻿open Functions
 
 let runDividers value (action: int -> int -> int) =
-    convolution (fun x -> value % x = 0) action 1 value
+    convolution (fun x -> value % x = 0) action 1 value 0
 
 let runUndividers value (action: int -> int -> int) =
-    convolution (fun x -> NOD x value = 1) action 1 value
+    convolution (fun x -> NOD x value = 1) action 1 value 0
 
 [<EntryPoint>]
 let main argv =

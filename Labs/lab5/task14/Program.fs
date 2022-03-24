@@ -1,7 +1,7 @@
 ﻿open Functions
 
 let processDividers x (action: int -> int -> int) init = 
-    convolution (fun v -> x % v = 0) action 2 x
+    convolution (fun v -> x % v = 0) action 2 x 0
 
 [<EntryPoint>]
 let main argv =
