@@ -38,7 +38,7 @@ let rec listConvolution (func: 'a -> 'a -> 'a) (list: 'a list) =
     | h::[] -> h
     | h::t -> func h (listConvolution func t)
 
-let convolution (predicate: 'a -> bool) (func: 'a -> 'a -> 'a) a b =
+let convolution (predicate: 'a -> bool) (func: 'a -> 'a -> 'a) a b c =
     let rec _convolution iter init =
         match iter with 
         | _ when iter = b -> if predicate b then func init b else init
@@ -46,7 +46,10 @@ let convolution (predicate: 'a -> bool) (func: 'a -> 'a -> 'a) a b =
             let newIter = iter + 1
             let newInit = if predicate iter then func init iter else init
             _convolution newIter newInit
-    _convolution a 0
+    _convolution a c
 
 let NOD n m =
     convolution (fun x -> m % x = 0 && n % x = 0) (fun x y -> y) 1 (max n m)
+
+let isEasy value = 
+    convolution (fun x -> value % x = 0) (fun x y -> x + 1) 2 value 0 = 1
