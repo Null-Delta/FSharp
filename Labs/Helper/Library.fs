@@ -38,6 +38,7 @@ let rec listConvolution (func: 'a -> 'a -> 'a) (list: 'a list) =
     | h::[] -> h
     | h::t -> func h (listConvolution func t)
 
+//метод, выполняющий func с начальным значением c всем числам от a до b, которые удовлетворяют predicate 
 let convolution (predicate: 'a -> bool) (func: 'a -> 'a -> 'a) a b c =
     let rec _convolution iter init =
         match iter with 
