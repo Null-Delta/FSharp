@@ -11,9 +11,13 @@ let rec multValues fromValue init =
         let newValue = fromValue / 10
         multValues newValue newInit
 
+let method3 value =
+    let mult = multValues value 1
+    let maxUndivider = convolution (fun x -> value % x = 0 && not (isEasy x) && x % 2 = 1) (fun x y -> y) 2 (value - 1) 1
+    NOD mult maxUndivider
+
 [<EntryPoint>]
 let main argv =
     let n = argv[0] |> int
-    //printfn "%d"(maxEasyDivider n)
-    printfn "%d"(multValues n 1)
+    printfn "%d"(method3 n)
     0

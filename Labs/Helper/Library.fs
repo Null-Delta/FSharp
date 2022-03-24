@@ -49,7 +49,7 @@ let convolution (predicate: 'a -> bool) (func: 'a -> 'a -> 'a) a b c =
     _convolution a c
 
 let NOD n m =
-    convolution (fun x -> m % x = 0 && n % x = 0) (fun x y -> y) 1 (max n m)
+    convolution (fun x -> m % x = 0 && n % x = 0) (fun x y -> y) 1 (max n m) 1
 
 let isEasy value = 
     convolution (fun x -> value % x = 0) (fun x y -> x + 1) 2 value 0 = 1
