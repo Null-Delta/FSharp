@@ -15,7 +15,7 @@ let main argv =
     fst <| input |> getFun <| (snd <| input) |> printfn "%d"
 
     //композиция
-    printfn "%d" ((Console.ReadLine >> int >> (fun x -> Console.ReadLine >> int >> getFun x) >> (fun x -> x))()())
+    printfn "%d" ((Console.ReadLine >> int >> (fun x -> Console.ReadLine >> int >> getFun x))()())
 
     //композиция, но ввод в переменной
     let input2 = (Console.ReadLine >> int,Console.ReadLine >> int)
@@ -23,5 +23,5 @@ let main argv =
     let index = fst input2
     let value = snd input2
 
-    printfn "%d" ((index >> (fun x -> value >> getFun x) >> (fun x -> x))()())
+    printfn "%d" ((index >> (fun x -> value >> getFun x))()())
     0
