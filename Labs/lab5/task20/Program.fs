@@ -22,6 +22,6 @@ let main argv =
 
     let index = fst input2
     let value = snd input2
-
+    
     printfn "%d" ((index >> (fun x -> value >> getFun x))()())
     0
