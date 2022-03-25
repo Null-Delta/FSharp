@@ -25,7 +25,8 @@ let isMax (list: int list) index =
 [<EntryPoint>]
 let main argv =
     let n = argv[0] |> int
+    let index = argv[1] |> int
 
     let list = readList n
-    printfn "%A"(isMax list 5)
+    printfn "%A"(isMax list index)
     0
