@@ -4,7 +4,7 @@ let rec findIndividual list =
     match list with
     | a::b::c::t -> 
         match a,b,c with
-        | (x,y,z) | (y,x,z) | (y,z,x) when x <> y && y = z -> Some(x)
+        | (x,y,z) | (y,x,z) | (y,z,x) when x <> y && y == z -> Some(x)
         | _ -> findIndividual (b::c::t)
     | _ -> None
          

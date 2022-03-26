@@ -1,5 +1,9 @@
 ﻿module Functions
 
+//БУНТ!!!
+let (!=) = (<>)
+let (==) = (=)
+
 let rec listFilter (predicate: 'a -> bool) (list: 'a list) =
     match list with
     | h::t -> if predicate h then h::(listFilter predicate t) else listFilter predicate t
@@ -42,7 +46,7 @@ let rec listConvolution (func: 'a -> 'a -> 'a) (list: 'a list) =
 let convolution (predicate: 'a -> bool) (func: 'a -> 'a -> 'a) a b c =
     let rec _convolution iter init =
         match iter with 
-        | _ when iter = b -> if predicate b then func init b else init
+        | _ when iter == b -> if predicate b then func init b else init
         | _ -> 
             let newIter = iter + 1
             let newInit = if predicate iter then func init iter else init
@@ -50,7 +54,7 @@ let convolution (predicate: 'a -> bool) (func: 'a -> 'a -> 'a) a b c =
     _convolution a c
 
 let NOD n m =
-    convolution (fun x -> m % x = 0 && n % x = 0) (fun x y -> y) 1 (max n m) 1
+    convolution (fun x -> m % x == 0 && n % x == 0) (fun x y -> y) 1 (max n m) 1
 
 let isEasy value = 
-    convolution (fun x -> value % x = 0) (fun x y -> x + 1) 2 value 0 = 1
+    convolution (fun x -> value % x == 0) (fun x y -> x + 1) 2 value 0 == 1

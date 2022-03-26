@@ -9,7 +9,7 @@ let rec unrepeatableValues list =
 
 let countList sourceList firstList =
     listMap 
-        (fun x -> (listFilter (fun y -> y = x) sourceList).Length)
+        (fun x -> (listFilter (fun y -> y == x) sourceList).Length)
         firstList
 
 [<EntryPoint>]

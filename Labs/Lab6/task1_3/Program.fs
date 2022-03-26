@@ -2,7 +2,7 @@
 
 let checkMax list index = 
     let checkValue = listValueAtIndex index list
-    (listFilter (fun x -> x > checkValue) list).Length = 0
+    (listFilter (fun x -> x > checkValue) list).Length == 0
 
 [<EntryPoint>]
 let main argv =

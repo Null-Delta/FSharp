@@ -5,7 +5,7 @@ let rec moveBack list =
     
     let rec _moveBack index list =
         match list with
-        | h::t when h = min -> list
+        | h::t when h == min -> list
         | _ ->
             let newList = list.Tail@[list.Head]
             _moveBack min newList

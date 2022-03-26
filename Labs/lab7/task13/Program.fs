@@ -7,7 +7,7 @@ let isMax (list: int list) index =
     let front = 
         List.fold (fun (state: bool * int list) (value: int) ->
             match state with
-            | (s, v) when s && value <> min -> (true, value::v)
+            | (s, v) when s && value != min -> (true, value::v)
             | (_, v) when value = min -> (false, v) 
             | (s,v) -> (false, v)
         ) (true, []) list |> snd

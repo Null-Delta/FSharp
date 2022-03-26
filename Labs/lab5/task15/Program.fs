@@ -1,7 +1,7 @@
 ﻿open Functions
 
 let processUndividers x (action: int -> int -> int) init = 
-    convolution (fun v -> NOD v x = 1) action 1 x 0
+    convolution (fun v -> NOD v x == 1) action 1 x 0
 
 [<EntryPoint>]
 let main argv =
