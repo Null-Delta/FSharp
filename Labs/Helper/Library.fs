@@ -58,3 +58,11 @@ let NOD n m =
 
 let isEasy value = 
     convolution (fun x -> value % x == 0) (fun x y -> x + 1) 2 value 0 == 1
+
+let isContains source (list: int list) =
+    (List.fold (fun (state: int list) value ->
+        match value with
+        | a when state.Length != 0 && a == state.Head -> state.Tail
+        | _ when state.Length == 0 -> state
+        | _ -> if value == list.Head then list.Tail else list
+    ) list source).Length == 0

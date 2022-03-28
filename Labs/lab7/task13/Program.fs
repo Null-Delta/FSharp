@@ -16,7 +16,7 @@ let isMax (list: int list) index =
         List.fold (fun (state: bool * int list) (value: int) ->
             match state with
             | (s, v) when s -> (true, v@[value])
-            | (s, v) when not s && value = min -> (true, v@[value]) 
+            | (s, v) when not s && value == min -> (true, v@[value]) 
             | (s,v) -> (false, v)
         ) (false, []) list |> snd
 
