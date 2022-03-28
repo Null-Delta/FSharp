@@ -66,3 +66,11 @@ let isContains source (list: int list) =
         | _ when state.Length == 0 -> state
         | _ -> if value == list.Head then list.Tail else list
     ) list source).Length == 0
+
+let rec readArray n =
+    match n with
+    | 0 -> [||]
+    | _ -> 
+        let value = System.Console.ReadLine() |> int
+        let other = readArray (n - 1)
+        Array.concat [|[|value|]; other|]
