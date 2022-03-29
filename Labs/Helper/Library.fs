@@ -74,3 +74,13 @@ let rec readArray n =
         let value = System.Console.ReadLine() |> int
         let other = readArray (n - 1)
         Array.concat [|[|value|]; other|]
+
+let rec stringFold (func: 'state -> char -> 'state) (init: 'state) (value: string) =
+    let rec _stringFold (index: int) (state: 'state) =
+        match index with
+        | final when final == value.Length -> state
+        | _ -> 
+            let newState = func state (value.Chars index)
+            let newIndex = index + 1
+            _stringFold newIndex newState
+    _stringFold 0 init
