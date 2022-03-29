@@ -17,11 +17,20 @@ let solution16 list =
         | _ -> 3
     ) list
 
+let solution3 value = 
+    value |>
+    splitString ' ' |>
+    List.sortBy (fun x -> 
+        (new System.Random()).Next(1, 1000)
+    ) |>
+    concatinate ' ' 
+
+
 [<EntryPoint>]
 let main argv =
     // let text = Console.ReadLine()
     // printfn "%A"(solution8 text)
-    
-    let list = [Console.ReadLine();Console.ReadLine();Console.ReadLine()]
-    printfn "%A"(solution16 list)
+
+    let list = Console.ReadLine()
+    printfn "%A"(solution3 list)
     0
