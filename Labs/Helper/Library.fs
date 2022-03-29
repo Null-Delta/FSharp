@@ -40,10 +40,10 @@ let rec readList size =
 let rec listConvolution (func: 'a -> 'a -> 'a) (list: 'a list) =
     match list with
     | h::[] -> h
-    | h::t -> func h (listConvolution func t)
+    | _ -> func list.Head (listConvolution func list.Tail)
 
 //метод, выполняющий func с начальным значением c всем числам от a до b, которые удовлетворяют predicate 
-let convolution (predicate: 'a -> bool) (func: 'a -> 'a -> 'a) a b c =
+let convolution (predicate: int -> bool) (func: int -> int -> int) a b c =
     let rec _convolution iter init =
         match iter with 
         | _ when iter == b -> if predicate b then func init b else init
@@ -75,7 +75,7 @@ let rec readArray n =
         let other = readArray (n - 1)
         Array.concat [|[|value|]; other|]
 
-let rec stringFold (func: 'state -> char -> 'state) (init: 'state) (value: string) =
+let stringFold (func: 'state -> char -> 'state) (init: 'state) (value: string) =
     let rec _stringFold (index: int) (state: 'state) =
         match index with
         | final when final == value.Length -> state
@@ -84,3 +84,22 @@ let rec stringFold (func: 'state -> char -> 'state) (init: 'state) (value: strin
             let newIndex = index + 1
             _stringFold newIndex newState
     _stringFold 0 init
+
+let splitString splitChar value =
+    stringFold (fun state char ->
+        match char with
+        | ' ' -> ""::state
+        | _ -> 
+            if state.Length == 0 then 
+                (char |> string)::state
+            else
+                (state.Head + (char |> string))::state.Tail
+    ) [] value |> List.rev
+
+let concatinate (withSpacer: char) (list: string list) =
+    List.fold (fun state value -> 
+        if snd state == list.Length - 1 then
+            (fst state + value, 0)
+        else
+            (fst state + value + (withSpacer |> string), snd state + 1)
+    ) ("", 0) list |> fst

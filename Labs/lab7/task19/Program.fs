@@ -28,9 +28,17 @@ let solution3 value =
 
 [<EntryPoint>]
 let main argv =
-    // let text = Console.ReadLine()
-    // printfn "%A"(solution8 text)
 
-    let list = Console.ReadLine()
-    printfn "%A"(solution3 list)
+    let n = argv[0] |> int
+
+    match n with
+    | 1 -> 
+        let list = Console.ReadLine()
+        printfn "%A"(solution3 list)
+    | 2 ->
+        let list = Console.ReadLine()
+        printfn "%A"(solution8 list)
+    | _ -> 
+        let list = [Console.ReadLine();Console.ReadLine();Console.ReadLine()]
+        printfn "%A"(solution16 list)
     0
