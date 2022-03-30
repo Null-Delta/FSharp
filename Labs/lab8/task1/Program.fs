@@ -39,6 +39,17 @@ type Circle(r: double) =
         member this.Print(): unit = printfn "%s"(this.ToString())
         end
 
+type UnionShape =
+    | UnionRectangle of double * double
+    | UnionSquare of double
+    | UnionCircle of double
+
+let UnionShapeSquare (shape: UnionShape) = 
+    match shape with
+    | UnionRectangle(a,b) -> a * b
+    | UnionCircle(a) -> Math.PI * a * a
+    | UnionSquare(a) -> a * a
+
 [<EntryPoint>]
 let main argv =
     let rect = Rectangle(10,20)
@@ -49,5 +60,8 @@ let main argv =
 
     let circ = Circle(10)
     (circ :> IPrint).Print()
+
+    let newShape = UnionCircle(5)
+    printfn "%A"(UnionShapeSquare newShape)
 
     0
