@@ -39,7 +39,14 @@ let solution2 (strings: string list) =
 
 [<EntryPoint>]
 let main argv = 
-    let n = Console.ReadLine() |> int
-    let strings = readStrings n
-    printfn "%A" (solution2 strings)
+    let index = argv[0] |> int
+    match index with
+    | 1 -> 
+        let n = Console.ReadLine() |> int
+        let strings = readStrings n
+        printfn "%A" (solution1 strings)
+    |2 ->
+        let n = Console.ReadLine() |> int
+        let strings = readStrings n
+        printfn "%A" (solution2 strings)
     0
