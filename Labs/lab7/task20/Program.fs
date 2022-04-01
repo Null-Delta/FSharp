@@ -27,12 +27,19 @@ let solution1 strings =
         abs (stringFeq - textFeq)
     ) strings
 
+let ascii char = int char - int '0'
+
+
+let asciiWeight string = (stringFold (fun sum v -> sum + float (ascii v)) 0.0 string) / (float string.Length)
+
+let solution2 (strings: string list) =
+    let first = strings.Head
+    let firstWeight = asciiWeight first
+    List.sortBy (fun x -> pown ((asciiWeight x) - firstWeight) 2) strings
+
 [<EntryPoint>]
 let main argv = 
-    //let index = argv[0] |> int
     let n = Console.ReadLine() |> int
-
     let strings = readStrings n
-
-    printfn "%A"(solution1 strings)
+    printfn "%A" (solution2 strings)
     0
