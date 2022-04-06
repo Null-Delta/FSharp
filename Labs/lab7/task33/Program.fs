@@ -5,7 +5,7 @@ let isToToTo (list: int list) =
     fst (List.fold (fun (state: bool * int) (value: int) -> 
         match value with
         | _ when fst state = false -> state
-        | _ -> ( snd state % 2 <> value % 2, value)
+        | _ -> ( (snd state) * (value) < 0, value)
     ) (true, list.Head) list.Tail)
 
 [<EntryPoint>]
