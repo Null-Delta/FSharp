@@ -4,6 +4,9 @@
 let (!=) = (<>)
 let (==) = (=)
 
+let println v =
+    printfn "%A"(v)
+    
 let rec listFilter (predicate: 'a -> bool) (list: 'a list) =
     match list with
     | h::t -> if predicate h then h::(listFilter predicate t) else listFilter predicate t
