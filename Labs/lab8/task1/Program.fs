@@ -65,3 +65,4 @@ let main argv =
     printfn "%A"(UnionShapeSquare newShape)
 
     0
+    
