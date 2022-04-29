@@ -14,7 +14,7 @@ type Rectangle(w: double, h: double) =
     let mutable height = h
     override this.square() = width * height
     override this.ToString() = 
-        $"Прямоугольник с шириной {width} и шириной {height}"
+        $"Прямоугольник с шириной {width} и высотой {height}"
     
     interface IPrint with
         member this.Print(): unit = printfn "%s"(this.ToString())
