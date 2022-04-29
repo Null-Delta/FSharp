@@ -48,6 +48,9 @@ parent(duhovlad,zlatomir).
 parent(zhdana,zdislava).
 parent(zhdana,zlatomir).
 
+%help if
+if(X,F1,F2) :- X,F1.
+if(X,F1,F2) :- F2.
 
 %task11
 dauther(X,Y) :- parent(Y,X),woman(X).
@@ -80,26 +83,24 @@ findMinNumberDown(X,Y) :- findMinNumberDown(X,Y,10).
 findMultNumsUp(X,Y) :- 
     X < 10,
     Mod is X mod 5,
-    (Mod = 0 -> Y is 1; Y is X).
+    if(0 is Mod, Y is 1, Y is X).
 findMultNumsUp(X,Y) :-
     V is X div 10,
     N is X mod 10,
     Mod is N mod 5,
-    (Mod = 0 
-        -> findMultNumsUp(V,Y);
-        findMultNumsUp(V,C),
-        Y is N * C).
+    if(0 is Mod, findMultNumsUp(V,Y), (findMultNumsUp(V,C), Y is N * C)).
 %task18
 findMultNumsDown(X,Y,Z) :- 
     X < 10,
     Mod is X mod 5,
-    (Mod = 0 -> Y is Z; Y is Z * X).
+    if(0 is Mod, Y is Z, Y is Z * X).
 findMultNumsDown(X,Y,Z) :-
     N is X mod 10,
     V is X div 10,
     Mod is N mod 5,
-    (Mod = 0 -> NewZ is Z; NewZ is N * Z),
+    if(0 is Mod, NewZ is Z, NewZ is N * Z),
     findMultNumsDown(V,Y,NewZ).
+
 findMultNumsDown(X,Y) :- findMultNumsDown(X,Y,1).
 %task19
 fibUp(N,X) :- N < 3, X is 1.
