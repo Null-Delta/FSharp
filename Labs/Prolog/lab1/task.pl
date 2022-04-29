@@ -60,7 +60,6 @@ wife(X,Y) :- parent(X,Z),parent(Y,Z),woman(X),man(Y).
 wife(X) :- wife(Y,X),print(Y),nl.
 %task13
 grand_ma(X,Y) :- parent(X,Z),parent(Z,Y),woman(X).
-%если инцеста не было, повторов не будет.
 grand_mas(X) :- parent(Y,X),parent(Z,Y),print(Z),nl,fail.
 %task14
 grand_ma_and_da(X,Y) :- woman(Y),woman(X),(grand_ma(X,Y);grand_ma(Y,X)).
@@ -88,19 +87,27 @@ findMultNumsUp(X,Y) :-
     V is X div 10,
     N is X mod 10,
     Mod is N mod 5,
-    if(0 is Mod, findMultNumsUp(V,Y), (findMultNumsUp(V,C), Y is N * C)).
+    if(0 is Mod, 
+        findMultNumsUp(V,Y),
+        (findMultNumsUp(V,C), Y is N * C)
+    ).
 %task18
 findMultNumsDown(X,Y,Z) :- 
     X < 10,
     Mod is X mod 5,
-    if(0 is Mod, Y is Z, Y is Z * X).
+    if(0 is Mod,
+        Y is Z, 
+        Y is Z * X
+    ).
 findMultNumsDown(X,Y,Z) :-
     N is X mod 10,
     V is X div 10,
     Mod is N mod 5,
-    if(0 is Mod, NewZ is Z, NewZ is N * Z),
+    if(0 is Mod,
+        NewZ is Z, 
+        NewZ is N * Z
+    ),
     findMultNumsDown(V,Y,NewZ).
-
 findMultNumsDown(X,Y) :- findMultNumsDown(X,Y,1).
 %task19
 fibUp(N,X) :- N < 3, X is 1.
@@ -113,5 +120,4 @@ fibDown(N,X,LX,PLX) :-
     NLX is LX + PLX,
     NPLX is LX,
     fibDown(NewN, X, NLX,NPLX).
-
 fibDown(N,X) :- N1 is N - 2, fibDown(N1,X,1,0).
