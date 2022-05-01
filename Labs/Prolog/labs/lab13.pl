@@ -148,3 +148,25 @@ findValues4 :-
     neibhor([stakan,_],[_,moloko],List),
     betweenList([_,limonade],[_,kvAss],[kuvshin,_],List),
     write(List),!.
+
+%task18
+findValues5 :-
+    List = [_,_,_,_],
+    inList(List,[voronov,_]),
+    inList(List,[pavlov,_]),
+    inList(List,[levizkiy,_]),
+    inList(List,[saharov,_]),
+    inList(List,[_,dancer]),
+    inList(List,[_,artist]),
+    inList(List,[_,singer]),
+    inList(List,[_,writer]),
+    not(inList(List,[voronov,singer])),
+    not(inList(List,[levizkiy,singer])),
+    not(inList(List,[pavlov,writer])),
+    not(inList(List,[saharov,writer])),
+    not(inList(List,[voronov,writer])),
+    not(inList(List,[pavlov,artist])),
+    write(List).
+
+
+
