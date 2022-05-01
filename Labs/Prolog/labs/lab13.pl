@@ -192,3 +192,25 @@ findValues6 :-
     C < D,
     write(List),!.
 
+%task20
+findValues7 :-
+    List = [_,_,_],
+    inList(List,[petr,_]),
+    inList(List,[roman,_]),
+    inList(List,[sergey,_]),
+    inList(List,[_,mathemathic]),
+    inList(List,[_,chemistry]),
+    inList(List,[_,physic]),
+    (
+        not(inList(List,[petr,mathemathic]));
+        inList(List,[sergey,physic])
+    ),
+    (
+        inList(List,[roman,physic]);
+        inList(List,[petr,mathemathic])
+    ),
+    (
+        inList(List,[sergey,mathemathic]);
+        inList(List,[roman,physic])    
+    ),
+    write(List),!.
