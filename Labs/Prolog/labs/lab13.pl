@@ -67,7 +67,7 @@ calculateLists(List,L1,L2) :-
     generateList2(List,L1,L2).
 
 %task14
-inList([H|T],H).
+inList([H|_],H).
 inList([_|T], V) :- inList(T,V).
 
 findValues :- 
@@ -118,7 +118,7 @@ findValues3 :-
     write(List),!.
     
 %task17
-betweenList(Center,FstSide,SndSide, [_,_]) :- fail,!.
+betweenList(_,_,_, [_,_]) :- fail,!.
 betweenList(Center,FstSide,SndSide, [FstSide,Center,SndSide|_]) :- !.
 betweenList(Center,FstSide,SndSide, [SndSide,Center,FstSide|_]) :- !.
 betweenList(Center,FstSide,SndSide, [_,H2,H3|T]) :-
@@ -126,9 +126,8 @@ betweenList(Center,FstSide,SndSide, [_,H2,H3|T]) :-
     
 neibhor(Value1,Value2, [Value1,Value2|_]).
 neibhor(Value1,Value2, [Value2,Value1|_]).
-neibhor(Value1,Value2, [Value1,A|_]) :- fail,!.
-neibhor(Value1,Value2, [Value2,A|_]) :- fail,!.
-neibhor(Value1,Value2, [H1,H2|T]) :- neibhor(Value1,Value2,[H2|T]),!.
+neibhor(_,_, [_,_|_]) :- fail,!.
+neibhor(Value1,Value2, [_,H2|T]) :- neibhor(Value1,Value2,[H2|T]),!.
 
 findValues4 :-
     List = [_,_,_,_],
@@ -166,7 +165,30 @@ findValues5 :-
     not(inList(List,[saharov,writer])),
     not(inList(List,[voronov,writer])),
     not(inList(List,[pavlov,artist])),
-    write(List).
+    write(List),!.
 
+%task19
+findValues6 :-
+    List = [_,_,_],
+    inList(List, [_,_,_,1]),
+    inList(List, [_,_,_,2]),
+    inList(List, [_,_,_,3]),
+    inList(List,[_,_,american,B]),
+    inList(List,[_,_,isralian,_]),
+    inList(List,[_,_,australian,_]),
 
+    inList(List,[_,basketball,_,_]),
+    inList(List,[_,tennis,_,D]),
+    inList(List,[_,kriket,_,1]),
+
+    inList(List,[maikl,basketball,_,A]),
+    inList(List,[saimon,_,isralian,C]),
+    inList(List,[richard,_,_,_]),
+    not(
+        inList(List,[maikl,_,isralian,_]);
+        inList(List,[maikl,_,american,_])
+    ),
+    A < B,
+    C < D,
+    write(List),!.
 
