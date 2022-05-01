@@ -78,12 +78,24 @@ findValues :-
     inList(List,[_,riziy]),
     inList(List,[_,blondin]),
     inList(List,[_,brunet]),
-    (
-        inList(List,[rizov,blondin]);
-        inList(List,[rizov,brunet])
-    ),
-    (
-        inList(List,[chernov,blondin]);
-        inList(List,[chernov,riziy])
-    ),
+    not(inList(List,[rizov,riziy])),
+    not(inList(List,[chernov,brunet])),
+    write(List),!.
+
+%task15
+findValues2 :-
+    List = [_,_,_],
+    inList(List,[_,_,white]),
+    inList(List,[_,_,blue]),
+    inList(List,[_,_,green]),
+    inList(List,[_,white,_]),
+    inList(List,[_,blue,_]),
+    inList(List,[_,green,_]),
+    inList(List,[valya,_,_]),
+    inList(List,[anya,A,A]),
+    inList(List,[natasha,green,_]),
+    not(inList(List,[valya,B,B])),
+    not(inList(List,[natasha,C,C])),
+    not(inList(List,[valya,white,_])),
+    not(inList(List,[valya,_,white])),
     write(List),!.
