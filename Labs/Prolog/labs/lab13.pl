@@ -117,3 +117,34 @@ findValues3 :-
     write('токарь: '),write(C),nl,
     write(List),!.
     
+%task17
+betweenList(Center,FstSide,SndSide, [_,_]) :- fail,!.
+betweenList(Center,FstSide,SndSide, [FstSide,Center,SndSide|_]) :- !.
+betweenList(Center,FstSide,SndSide, [SndSide,Center,FstSide|_]) :- !.
+betweenList(Center,FstSide,SndSide, [_,H2,H3|T]) :-
+    betweenList(Center, FstSide, SndSide, [H2,H3|T]),!.
+    
+neibhor(Value1,Value2, [Value1,Value2|_]).
+neibhor(Value1,Value2, [Value2,Value1|_]).
+neibhor(Value1,Value2, [Value1,A|_]) :- fail,!.
+neibhor(Value1,Value2, [Value2,A|_]) :- fail,!.
+neibhor(Value1,Value2, [H1,H2|T]) :- neibhor(Value1,Value2,[H2|T]),!.
+
+findValues4 :-
+    List = [_,_,_,_],
+    inList(List,[butilka,_]),
+    inList(List,[stakan,_]),
+    inList(List,[kuvshin,_]),
+    inList(List,[banka,_]),
+    inList(List,[_,moloko]),
+    inList(List,[_,limonade]),
+    inList(List,[_,kvAss]),
+    inList(List,[_,voda]),
+    not(inList(List,[butilka,moloko])),
+    not(inList(List,[butilka,voda])),
+    not(inList(List,[banka,limonade])),
+    not(inList(List,[banka,voda])),
+    neibhor([stakan,_],[banka,_],List),
+    neibhor([stakan,_],[_,moloko],List),
+    betweenList([_,limonade],[_,kvAss],[kuvshin,_],List),
+    write(List),!.
