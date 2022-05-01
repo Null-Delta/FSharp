@@ -65,3 +65,25 @@ generateList2(List, List1, List2) :- generateList2(List,List1,List2,[]).
 calculateLists(List,L1,L2) :-
     generateList1(List,L1),
     generateList2(List,L1,L2).
+
+%task14
+inList([H|T],H).
+inList([_|T], V) :- inList(T,V).
+
+findValues :- 
+    List = [_,_,_],
+    inList(List,[belocurov,_]),
+    inList(List,[rizov,_]),
+    inList(List,[chernov,_]),
+    inList(List,[_,riziy]),
+    inList(List,[_,blondin]),
+    inList(List,[_,brunet]),
+    (
+        inList(List,[rizov,blondin]);
+        inList(List,[rizov,brunet])
+    ),
+    (
+        inList(List,[chernov,blondin]);
+        inList(List,[chernov,riziy])
+    ),
+    write(List),!.
