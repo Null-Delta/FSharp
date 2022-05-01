@@ -99,3 +99,21 @@ findValues2 :-
     not(inList(List,[valya,white,_])),
     not(inList(List,[valya,_,white])),
     write(List),!.
+
+%task16
+findValues3 :-
+    List = [_,_,_],
+    inList(List,[_,_,1]),
+    inList(List,[_,_,2]),
+    inList(List,[A,slesar,0]),
+    inList(List,[B,svarshik,_]),
+    inList(List,[C,tokar,E]),
+    inList(List,[boris,_,_]),
+    inList(List,[ivanov,_,_]),
+    inList(List,[semenov,_,D]),
+    D > E,
+    write('слесарь: '),write(A),write(', '),
+    write('сварщик: '),write(B),write(', '),
+    write('токарь: '),write(C),nl,
+    write(List),!.
+    
