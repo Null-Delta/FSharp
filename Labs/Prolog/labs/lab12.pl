@@ -80,8 +80,13 @@ lenght([],0).
 lenght([_|Tail],X) :- lenght(Tail,V), X is V + 1.
 
 %task15-3
+equal(L,L).
+
 getValue([H|T],Index,X) :- 
+    not(is_list(H)),
     (0 is Index, X is H; NewIndex is Index - 1,getValue(T,NewIndex,X)).
+getValue([H|T],Index,X) :- 
+    (0 is Index, equal(X,H); NewIndex is Index - 1,getValue(T,NewIndex,X)).
 
 findMax([],X,Z) :- X is Z.
 findMax([H|T],X,Z) :- 

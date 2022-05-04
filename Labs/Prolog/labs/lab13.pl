@@ -1,3 +1,5 @@
+:- ['lab12'].
+
 %task39
 printArrayWithStep2([], _).
 printArrayWithStep2([H|T], Index) :-
@@ -27,12 +29,11 @@ findSum(List,A,B,R) :- findSum(List,A,B,R,0).
 %task51
 contains([],_) :- fail,!.
 contains([H|T],V) :-
-    (V is H,!;contains(T,V)).
+    not(is_list(H)),
+    (V is H;contains(T,V)),!.
 
-reverseList([],Result, Local) :- Result = Local.
-reverseList([H|T],Result, Local) :-
-    reverseList(T, Result, [H|Local]).
-reverseList(List,Result) :- reverseList(List,Result, []).
+contains([H|T],V) :-
+    (equal(H,V); contains(T,V)),!.
 
 pushBack(List,V,NewList) :-
     reverseList(List, ReversedList),
@@ -48,7 +49,15 @@ generateList1([_|T], Result, LocalResult) :-
 generateList1(List,Result) :- generateList1(List, Result, []).
 
 findCount([],_,R,R).
+
 findCount([H|T],V,R,LR) :-
+    equal(H,V), 
+    NewLR is LR + 1,
+    findCount(T,V,R,NewLR),!;
+    findCount(T,V,R,LR).
+
+findCount([H|T],V,R,LR) :-
+    not(is_list(H)),
     H is V, 
     NewLR is LR + 1,
     findCount(T,V,R,NewLR),!;
