@@ -332,3 +332,33 @@ generateTask9List(List) :-
     inList(Chars,A),inList(Chars,B),inList(Chars,C),inList(Chars,D),inList(Chars,E),
     generateList1(List,UniqueList),
     lenght(UniqueList,4).
+
+%task10
+lab14task10 :-
+    findall(List, generateTask10List(List), Result),
+    (exists_file('lab14_task10output.txt'),delete_file('lab14_task10output.txt'); told ),
+    tell('lab14_task10output.txt'),
+    writeAllWords(Result),
+    told.
+    
+generateTask10List(List) :-
+    Chars = [97,98,99,100,101,102],
+    equalLists(List,[_,_,_,_,_,_]),
+    inList(Chars,A),
+    removeElement(Chars,A,CharsWithoutA),
+    inList(CharsWithoutA,B),
+    removeElement(CharsWithoutA,B,CharsWithoutB),
+    inList(CharsWithoutB,C),
+    removeElement(CharsWithoutB,C,CharsWithoutC),
+    inList(CharsWithoutC,D),
+
+    inList(List,C),
+    inList(List,D),
+
+    inList(List,A),
+    removeElement(List,A,ListWithoutA),
+    inList(ListWithoutA,A),
+
+    inList(List,B),
+    removeElement(List,B,ListWithoutB),
+    inList(ListWithoutB,B).

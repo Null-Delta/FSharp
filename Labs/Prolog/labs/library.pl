@@ -30,6 +30,17 @@ removeByIndex([H|T], Index, NewList, LocalList) :-
 
 removeByIndex(List, Index, NewList) :- removeByIndex(List, Index, NewList, []),!.
 
+%удалить элемент
+removeElement([H|T], H, NewList, LocalList) :-
+    concatenate(LocalList, T, ConcatenatedList),
+    equalLists(NewList, ConcatenatedList).
+
+removeElement([H|T], Value, NewList, LocalList) :-
+    pushBack(LocalList, H, NewLocalList),
+    removeElement(T,Value, NewList, NewLocalList).
+
+removeElement(List, Value, NewList) :- removeElement(List, Value, NewList, []),!.
+
 %кастомный мап
 mapList(_,[], []).
 mapList(Func,[IH|IT], [OH|OT]) :-
@@ -44,8 +55,6 @@ filterList(Predicate, [H|T], FilteredList, LocalList) :-
     filterList(Predicate, T, FilteredList, NewLocalList);
     filterList(Predicate,T,FilteredList, LocalList).
 filterList(Predicate, List, FilteredList) :- filterList(Predicate, List, FilteredList, []).
-
-%folderSum(X,Y,Z) :- Z is X + Y.
 
 %кастомный фолд
 foldList(_,Result,[], Result) :- !.
