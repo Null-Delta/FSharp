@@ -317,3 +317,18 @@ generateTask8List(List) :-
     2 is X,
     generateList1(List,UniqueList),
     lenght(UniqueList,4).
+
+%task9
+lab14task9 :-
+    findall(List, generateTask9List(List), Result),
+    (exists_file('lab14_task9output.txt'),delete_file('lab14_task9output.txt'); told ),
+    tell('lab14_task9output.txt'),
+    writeAllWords(Result),
+    told.
+    
+generateTask9List(List) :-
+    Chars = [97,98,99,100,101,102],
+    equalLists(List, [A,B,C,D,E]),
+    inList(Chars,A),inList(Chars,B),inList(Chars,C),inList(Chars,D),inList(Chars,E),
+    generateList1(List,UniqueList),
+    lenght(UniqueList,4).
