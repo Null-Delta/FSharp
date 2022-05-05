@@ -1,10 +1,12 @@
-:- ['lab13'].
+:- ['lab13','library'].
+
 
 %чтение строки
 readString(String) :- get0(X),inputString(String,[], X).
 
 %обработка ввода
-inputString(A,B, 10) :- A = B,!.
+inputString(B,B, 10) :- !.
+inputString(B,B, -1) :- !.
 inputString(Str,LocalStr, Char) :-
     pushBack(LocalStr, Char, NewLocalStr),
     get0(X),
@@ -57,15 +59,16 @@ task1_4 :-
     lenght(X,L),
     (
         L =< 5,
-        equal(X,[H1|_]),
+        equalLists(X,[H1|_]),
         writeChar(H1,L);
 
-        equal(X,[F1,F2,F3|_]),
+
+        equalLists(X, [F1,F2,F3|_]),
         put(F1),put(F2),put(F3),
 
         reverseList(X, RevX),
 
-        equal(RevX,[L1,L2,L3|_]),
+        equalLists(RevX, [L1,L2,L3|_]),
         put(L3),put(L2),put(L1)
     ),!.
 
@@ -82,5 +85,119 @@ printIndex([H|T], Value, Index) :-
 task1_5 :- 
     readString(X),
     reverseList(X, RevX),
-    equal(RevX, [LastChar|_]),
+    equalLists(RevX, [LastChar|_]),
     printIndex(X,LastChar,0),!.
+
+%task2
+readLines(Lines, LocalLines) :-
+    readString(X),
+    (
+        equalLists([],X),equalLists(Lines, LocalLines);
+        pushBack(LocalLines, X, NewLocalLines),
+        readLines(Lines,NewLocalLines)
+    ).
+
+readFile(File, Lines) :-
+    see(File),
+    readLines(Lines,[]).
+
+task2_1 :- 
+    readFile('lab14_task2_1input.txt', Lines), 
+    mapList(lenght, Lines, Lenghts),
+    findMax(Lenghts, Max),
+    write(Max),!.
+
+haventSpace([]) :- !.
+haventSpace([H|T]) :- haventSpace(T),not(32 is H),!.
+
+task2_2 :-
+    readFile('lab14_task2_2input.txt',Lines),
+    filterList(
+        haventSpace,
+        Lines,
+        WithoutSpaceLines),
+    lenght(WithoutSpaceLines, Count),
+    write(Count),!.
+
+%oh shit, here we go again...lambda...
+task2_3 :-
+    readFile('lab14_task2_3input.txt',Lines),
+    foldList(
+        [State, Line, NewState]>>(
+            foldList(
+                [State2, Char, NewState2]>>(
+                    (65 is Char;97 is Char),NewState2 is State2 + 1; NewState2 is State2
+                ),
+                0,
+                Line,
+                AInLine
+            ),
+            NewState is AInLine + State
+        ),
+        0,
+        Lines,
+        AInFile
+    ),
+    foldList(
+        [State, Line, NewState]>>(
+            lenght(Line,L),
+            NewState is L + State
+        ),
+        0,
+        Lines,
+        CountOfChars
+    ),
+    AMid is AInFile / CountOfChars,
+    filterList(
+        [Line]>>(
+            foldList(
+                [State3, Char, NewState3]>>(
+                    (65 is Char;97 is Char),NewState3 is State3 + 1; NewState3 is State3
+                ),
+                0,
+                Line,
+                AInLine
+            ),
+            AInLine > AMid
+        ),
+        Lines,
+        Result
+    ),
+    writeAllWords(Result),!.
+
+task2_4 :- 
+    readFile('lab14_task2_4input.txt',Lines),
+    foldList(
+        [State, Line, NewState]>>(
+            pushBack(Line,32,LineWithSpace),
+            concatenate(State, LineWithSpace, NewState)
+        ),
+        [],
+        Lines,
+        ConcatenatedLines
+    ),
+    getAllWords(ConcatenatedLines, Words),
+    calculateLists(Words, UniqueWords, Counts),
+    findMax(Counts, Max),
+    findIndex(Counts, Max, Index),
+    getValue(UniqueWords,Index,Value),
+    writeString(Value),!.
+
+task2_5 :- 
+    readFile('lab14_task2_5input.txt',Lines),
+    foldList(
+        [State, Line, NewState]>>(
+            pushBack(Line,32,LineWithSpace),
+            concatenate(State, LineWithSpace, NewState)
+        ),
+        [],
+        Lines,
+        ConcatenatedLines
+    ),
+    getAllWords(ConcatenatedLines, Words),
+    calculateLists(Words, UniqueWords, Counts),
+    (exists_file('lab14_task2_5output.txt'),delete_file('lab14_task2_5output.txt'); told ),
+    tell('lab14_task2_5output.txt'),
+    writeAllWords(UniqueWords),
+    told,!.
+

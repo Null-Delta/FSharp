@@ -1,4 +1,4 @@
-:- ['lab12'].
+:- ['lab12', 'library'].
 
 %task39
 printArrayWithStep2([], _).
@@ -33,11 +33,7 @@ contains([H|T],V) :-
     (V is H;contains(T,V)),!.
 
 contains([H|T],V) :-
-    (equal(H,V); contains(T,V)),!.
-
-pushBack(List,V,NewList) :-
-    reverseList(List, ReversedList),
-    reverseList([V|ReversedList], NewList).
+    (equalLists(H,V); contains(T,V)),!.
 
 generateList1([],R,R).
 generateList1([H|T], Result, LocalResult) :-
@@ -51,7 +47,7 @@ generateList1(List,Result) :- generateList1(List, Result, []).
 findCount([],_,R,R).
 
 findCount([H|T],V,R,LR) :-
-    equal(H,V), 
+    equalLists(H,V), 
     NewLR is LR + 1,
     findCount(T,V,R,NewLR),!;
     findCount(T,V,R,LR).

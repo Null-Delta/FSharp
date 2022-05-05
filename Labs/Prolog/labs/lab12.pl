@@ -1,3 +1,6 @@
+:- ['library'].
+
+
 isEasy(Value,Value).
 isEasy(1,_).
 isEasy(Value, Iter) :- 
@@ -80,14 +83,6 @@ lenght([],0).
 lenght([_|Tail],X) :- lenght(Tail,V), X is V + 1.
 
 %task15-3
-equal(L,L).
-
-getValue([H|T],Index,X) :- 
-    not(is_list(H)),
-    (0 is Index, X is H; NewIndex is Index - 1,getValue(T,NewIndex,X)).
-getValue([H|T],Index,X) :- 
-    (0 is Index, equal(X,H); NewIndex is Index - 1,getValue(T,NewIndex,X)).
-
 findMax([],X,Z) :- X is Z.
 findMax([H|T],X,Z) :- 
     NewZ is max(H,Z),
@@ -118,15 +113,10 @@ findIndex([H|T],Value,Index, LocalIndex) :-
     (H is Value, Index is LocalIndex;NewLocalIndex is LocalIndex + 1,findIndex(T,Value,Index, NewLocalIndex)).
 findIndex(List,Value, Index) :- findIndex(List,Value,Index,0).
 
-reverseList([],Result, Local) :- Result = Local.
-reverseList([H|T],Result, Local) :-
-    reverseList(T, Result, [H|Local]).
-reverseList(List,Result) :- reverseList(List,Result, []).
-
 replaceElements([],0,NewList,LocalList) :- NewList = LocalList.
 replaceElements([H|T],0,NewList,LocalList) :-
     reverseList([H|T],[NH|NT]),
-    reverseList(NT,NewInput),
+    reverseList(NT,NewInt),
     replaceElements(NewInput,0,NewList, [NH|LocalList]).
 replaceElements([H|T], Index, NewList, LocalList) :-
     reverseList(LocalList,ReversedList),
