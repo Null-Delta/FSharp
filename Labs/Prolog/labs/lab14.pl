@@ -44,7 +44,7 @@ task1_2 :- readString(X), getAllWords(X,List),lenght(List,Y), write(Y),!.
 task1_3 :- 
     readString(X),
     getAllWords(X,List),
-    generateList1(List, UniqueWords),
+    generateUniqueList(List, UniqueWords),
     generateList2(List, UniqueWords, CountOfWords),
     findMax(CountOfWords, Max),
     findIndex(CountOfWords, Max, Index),
@@ -315,7 +315,7 @@ generateTask8List(List) :-
         X
     ),
     2 is X,
-    generateList1(List,UniqueList),
+    generateUniqueList(List,UniqueList),
     lenght(UniqueList,4).
 
 %task9
@@ -330,7 +330,7 @@ generateTask9List(List) :-
     Chars = [97,98,99,100,101,102],
     equalLists(List, [A,B,C,D,E]),
     inList(Chars,A),inList(Chars,B),inList(Chars,C),inList(Chars,D),inList(Chars,E),
-    generateList1(List,UniqueList),
+    generateUniqueList(List,UniqueList),
     lenght(UniqueList,4).
 
 %task10

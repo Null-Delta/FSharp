@@ -27,20 +27,6 @@ findSum([_|T],A,B,R,LR) :- findSum(T,A,B,R,LR).
 findSum(List,A,B,R) :- findSum(List,A,B,R,0).
 
 %task51
-contains([H|T],V) :- inList([H|T],V).
-
-contains([H|T],V) :-
-    (equalLists(H,V); contains(T,V)),!.
-
-generateList1([],R,R).
-generateList1([H|T], Result, LocalResult) :-
-    not(contains(LocalResult,H)),
-    pushBack(LocalResult, H, NewLocal),
-    generateList1(T,Result,NewLocal),!.
-generateList1([_|T], Result, LocalResult) :-
-    generateList1(T,Result,LocalResult),!.
-generateList1(List,Result) :- generateList1(List, Result, []).
-
 findCount([],_,R,R).
 
 findCount([H|T],V,R,LR) :-
@@ -65,7 +51,7 @@ generateList2(List,[H|T],List2,LocalList) :-
 generateList2(List, List1, List2) :- generateList2(List,List1,List2,[]).
 
 calculateLists(List,L1,L2) :-
-    generateList1(List,L1),
+    generateUniqueList(List,L1),
     generateList2(List,L1,L2).
 
 %task14

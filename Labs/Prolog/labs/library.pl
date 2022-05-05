@@ -1,5 +1,10 @@
 equalLists(L,L).
 
+inList([H|_],H).
+inList([_|T], V) :- inList(T,V).
+
+contains([H|T],V) :- inList([H|T],V).
+
 %получить значение по индексу
 getValue([H|T],Index,X) :- 
     not(is_list(H)),
@@ -68,7 +73,36 @@ concatenate(List1, [H|T], ResultList) :-
     pushBack(List1, H, NewList1),
     concatenate(NewList1,T,ResultList),!.
 
-allList(Predicate, []).
+allList(_, []).
 allList(Predicate, [H|T]) :-
     call(Predicate,H),
     allList(Predicate,T),!.
+
+char_count_in_list(List,Value,Count) :-
+    foldList(
+        [State, V, NewState]>>(
+            V is Value,NewState is State + 1; NewState is State
+        ),
+        0,
+        List,
+        Count
+    ).
+
+generateUniqueList([],R,R).
+generateUniqueList([H|T], Result, LocalResult) :-
+    not(contains(LocalResult,H)),
+    pushBack(LocalResult, H, NewLocal),
+    generateUniqueList(T,Result,NewLocal),!.
+generateUniqueList([_|T], Result, LocalResult) :-
+    generateUniqueList(T,Result,LocalResult),!.
+generateUniqueList(List,Result) :- generateUniqueList(List, Result, []).
+
+equal_chars_count(List,Count) :-
+    generateUniqueList(List,UniqueList),
+    lenght(UniqueList,Count).
+
+
+all_chars_contrains(_,[]).
+all_chars_contrains(List, [H2|T2]) :-
+    contains(List,H2),
+    all_chars_contrains(List,T2).

@@ -1,6 +1,5 @@
 :- ['library'].
 
-
 isEasy(Value,Value).
 isEasy(1,_).
 isEasy(Value, Iter) :- 
