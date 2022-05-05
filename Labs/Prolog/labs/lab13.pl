@@ -27,10 +27,7 @@ findSum([_|T],A,B,R,LR) :- findSum(T,A,B,R,LR).
 findSum(List,A,B,R) :- findSum(List,A,B,R,0).
 
 %task51
-contains([],_) :- fail,!.
-contains([H|T],V) :-
-    not(is_list(H)),
-    (V is H;contains(T,V)),!.
+contains([H|T],V) :- inList([H|T],V).
 
 contains([H|T],V) :-
     (equalLists(H,V); contains(T,V)),!.

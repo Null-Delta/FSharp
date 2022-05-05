@@ -58,3 +58,8 @@ concatenate(List1, [], List1).
 concatenate(List1, [H|T], ResultList) :-
     pushBack(List1, H, NewList1),
     concatenate(NewList1,T,ResultList),!.
+
+allList(Predicate, []).
+allList(Predicate, [H|T]) :-
+    call(Predicate,H),
+    allList(Predicate,T),!.
