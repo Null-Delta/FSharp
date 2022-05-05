@@ -195,9 +195,79 @@ task2_5 :-
         ConcatenatedLines
     ),
     getAllWords(ConcatenatedLines, Words),
-    calculateLists(Words, UniqueWords, Counts),
+    calculateLists(Words, UniqueWords, _),
     (exists_file('lab14_task2_5output.txt'),delete_file('lab14_task2_5output.txt'); told ),
     tell('lab14_task2_5output.txt'),
     writeAllWords(UniqueWords),
     told,!.
 
+%3
+unsortList([], List, List).
+unsortList(List, NewList, LocalList) :-
+    lenght(List, L),
+    random(0, L, RandIndex),
+    getValue(List, RandIndex, Value),
+    pushBack(LocalList, Value, NewLocalList),
+    removeByIndex(List, RandIndex, NewSourceList),
+    unsortList(NewSourceList, NewList, NewLocalList),!.
+    
+    
+unsortList(List, NewList) :- unsortList(List, NewList, []).
+
+task3_3 :-
+    readFile('lab14_task3_3input.txt', [Line]),
+    getAllWords(Line,Words),
+    unsortList(Words, UnsortedWords),
+    foldList(
+        [State,Word,NewState]>>(
+            concatenate(State,[32|Word],NewState)
+        ),
+        [],
+        UnsortedWords,
+        [_|ResultString]
+    ),
+    writeString(ResultString),!. 
+
+task3_8 :-
+    readFile('lab14_task3_3input.txt', [Line]),
+    getAllWords(Line,Words),
+    filterList(
+        [Word]>>(
+            lenght(Word,L),
+            0 is L mod 2
+        ),
+        Words,
+        FilteredWords
+    ),
+    lenght(FilteredWords,Result),
+    write(Result),!.
+
+task3_16 :-
+    readFile('lab14_task3_16input.txt', Colors),
+    filterList(
+        [Word]>>(
+            string_to_list('белый', Codes),
+            equalLists(Word,Codes)
+        ),
+        Colors,
+        Whites
+    ),
+    filterList(
+        [Word]>>(
+            string_to_list('синий', Codes),
+            equalLists(Word,Codes)
+        ),
+        Colors,
+        Blues
+    ),
+    filterList(
+        [Word]>>(
+            string_to_list('красный', Codes),
+            equalLists(Word,Codes)
+        ),
+        Colors,
+        Reds
+    ),
+    concatenate(Whites, Blues, PreResult),
+    concatenate(PreResult, Reds, Result),
+    writeAllWords(Result),!.

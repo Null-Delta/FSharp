@@ -116,7 +116,7 @@ findIndex(List,Value, Index) :- findIndex(List,Value,Index,0).
 replaceElements([],0,NewList,LocalList) :- NewList = LocalList.
 replaceElements([H|T],0,NewList,LocalList) :-
     reverseList([H|T],[NH|NT]),
-    reverseList(NT,NewInt),
+    reverseList(NT,NewInput),
     replaceElements(NewInput,0,NewList, [NH|LocalList]).
 replaceElements([H|T], Index, NewList, LocalList) :-
     reverseList(LocalList,ReversedList),

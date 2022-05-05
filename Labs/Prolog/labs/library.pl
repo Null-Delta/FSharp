@@ -18,6 +18,18 @@ pushBack(List,V,NewList) :-
     reverseList(List, ReversedList),
     reverseList([V|ReversedList], NewList).
 
+%удалить элемент по индексу
+removeByIndex([_|T], 0, NewList, LocalList) :-
+    concatenate(LocalList, T, ConcatenatedList),
+    equalLists(NewList, ConcatenatedList).
+
+removeByIndex([H|T], Index, NewList, LocalList) :-
+    NewIndex is Index - 1,
+    pushBack(LocalList, H, NewLocalList),
+    removeByIndex(T,NewIndex, NewList, NewLocalList).
+
+removeByIndex(List, Index, NewList) :- removeByIndex(List, Index, NewList, []),!.
+
 %кастомный мап
 mapList(_,[], []).
 mapList(Func,[IH|IT], [OH|OT]) :-
