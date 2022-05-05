@@ -273,10 +273,8 @@ task3_16 :-
     writeAllWords(Result),!.
 
 %task7
-
 lab14task7 :-
     findall(List, generateTask7List(List), Result),
-    generateList1(Result,UniqueResult),
     (exists_file('lab14_task7output.txt'),delete_file('lab14_task7output.txt'); told ),
     tell('lab14_task7output.txt'),
     writeAllWords(Result),
@@ -295,3 +293,27 @@ generateTask7List(List) :-
         X
     ),
     2 is X.
+
+%task8
+lab14task8 :-
+    findall(List, generateTask8List(List), Result),
+    (exists_file('lab14_task8output.txt'),delete_file('lab14_task8output.txt'); told ),
+    tell('lab14_task8output.txt'),
+    writeAllWords(Result),
+    told.
+    
+generateTask8List(List) :-
+    Chars = [97,98,99,100,101,102],
+    equalLists(List, [A,B,C,D,E]),
+    inList(Chars,A),inList(Chars,B),inList(Chars,C),inList(Chars,D),inList(Chars,E),
+    foldList(
+        [State, Char, NewState]>>(
+            97 is Char,NewState is State + 1;NewState is State
+        ),
+        0,
+        List,
+        X
+    ),
+    2 is X,
+    generateList1(List,UniqueList),
+    lenght(UniqueList,4).
