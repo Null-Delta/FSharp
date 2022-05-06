@@ -1,4 +1,4 @@
-:- ['lab13','library'].
+:- ['lab13','library','generatorLib'].
 
 
 %чтение строки
@@ -274,91 +274,70 @@ task3_16 :-
 
 %task7
 lab14task7 :-
-    findall(List, generateTask7List(List), Result),
-    (exists_file('lab14_task7output.txt'),delete_file('lab14_task7output.txt'); told ),
-    tell('lab14_task7output.txt'),
-    writeAllWords(Result),
-    told.
+    writeResultInFile(generateTask7List(_), 'lab14_task7output.txt').
     
 generateTask7List(List) :-
     Chars = [97,98,99,100,101,102],
-    equalLists(List, [A,B,C,D,E]),
-    inList(Chars,A),inList(Chars,B),inList(Chars,C),inList(Chars,D),inList(Chars,E),
-    foldList(
-        [State, Char, NewState]>>(
-            97 is Char,NewState is State + 1;NewState is State
-        ),
-        0,
-        List,
-        X
-    ),
-    2 is X.
+    List ~ [_,_,_,_,_],
+    Chars --/ 97 /-- CWA,
+    CWA /?- 3 --/ [B,C,D],
+    List <-- 97 -? 2,
+    List <-- [B,C,D] -? 1,
+    writeString(List),nl.
+
+generateTask7List(List) :-
+    Chars = [97,98,99,100,101,102],
+    List ~ [_,_,_,_,_],
+    Chars --/ 97 /-- CWA,
+    CWA --/ B,
+    List <-- 97 -? 2,
+    List <-- B -? 3,
+    writeString(List),nl.
+
+generateTask7List(List) :-
+    Chars = [97,98,99,100,101,102],
+    List ~ [_,_,_,_,_],
+    Chars /?- 2 --/ [97,B] /-- CWAB,
+    CWAB --/ C,
+    List <-- [97,B] -? 2,
+    List <-- C,
+    writeString(List),nl.
 
 %task8
 lab14task8 :-
-    findall(List, generateTask8List(List), Result),
-    (exists_file('lab14_task8output.txt'),delete_file('lab14_task8output.txt'); told ),
-    tell('lab14_task8output.txt'),
-    writeAllWords(Result),
-    told.
+    writeResultInFile(generateTask8List(_), 'lab14_task8output.txt').
     
 generateTask8List(List) :-
     Chars = [97,98,99,100,101,102],
-    equalLists(List, [A,B,C,D,E]),
-    inList(Chars,A),inList(Chars,B),inList(Chars,C),inList(Chars,D),inList(Chars,E),
-    foldList(
-        [State, Char, NewState]>>(
-            97 is Char,NewState is State + 1;NewState is State
-        ),
-        0,
-        List,
-        X
-    ),
-    2 is X,
-    generateUniqueList(List,UniqueList),
-    lenght(UniqueList,4).
+    List ~ [_,_,_,_,_],
+    Chars --/ 97 /-- CWA,
+    CWA /?- 3 --/ [B,C,D],
+    List <-- 97 -? 2,
+    List <-- [B,C,D] -? 1,
+    writeString(List),nl.
 
 %task9
 lab14task9 :-
-    findall(List, generateTask9List(List), Result),
-    (exists_file('lab14_task9output.txt'),delete_file('lab14_task9output.txt'); told ),
-    tell('lab14_task9output.txt'),
-    writeAllWords(Result),
-    told.
+    writeResultInFile(generateTask9List(_), 'lab14_task9output.txt').
     
 generateTask9List(List) :-
     Chars = [97,98,99,100,101,102],
-    equalLists(List, [A,B,C,D,E]),
-    inList(Chars,A),inList(Chars,B),inList(Chars,C),inList(Chars,D),inList(Chars,E),
-    generateUniqueList(List,UniqueList),
-    lenght(UniqueList,4).
+    List ~ [_,_,_,_,_],
+    Chars --/ A /-- CWA,
+    CWA /?- 3 --/ [B,C,D],
+    List <-- A -? 2,
+    List <-- [B,C,D] -? 1,
+    writeString(List),nl.
 
 %task10
 lab14task10 :-
-    findall(List, generateTask10List(List), Result),
-    (exists_file('lab14_task10output.txt'),delete_file('lab14_task10output.txt'); told ),
-    tell('lab14_task10output.txt'),
-    writeAllWords(Result),
-    told.
+    writeResultInFile(generateTask10List(_), 'lab14_task10output.txt').
     
 generateTask10List(List) :-
     Chars = [97,98,99,100,101,102],
-    equalLists(List,[_,_,_,_,_,_]),
-    inList(Chars,A),
-    removeElement(Chars,A,CharsWithoutA),
-    inList(CharsWithoutA,B),
-    removeElement(CharsWithoutA,B,CharsWithoutB),
-    inList(CharsWithoutB,C),
-    removeElement(CharsWithoutB,C,CharsWithoutC),
-    inList(CharsWithoutC,D),
-
-    inList(List,C),
-    inList(List,D),
-
-    inList(List,A),
-    removeElement(List,A,ListWithoutA),
-    inList(ListWithoutA,A),
-
-    inList(List,B),
-    removeElement(List,B,ListWithoutB),
-    inList(ListWithoutB,B).
+    List ~ [_,_,_,_,_,_],
+    Chars /?- 2 --/ [A,B] /-- CWAB,
+    CWAB /?- 2 --/ [C,D],
+    List <-- [A,B] -? 2,
+    List <-- [C,D] -? 1,
+    writeString(List),nl.
