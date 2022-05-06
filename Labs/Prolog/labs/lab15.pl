@@ -75,3 +75,35 @@ generateLab15Task4List(List) :-
     List <-- A,
     List <-- [B,C,D] -? 2,
     writeString(List),nl.
+
+%task5
+lab15task5(N,K) :-
+    (exists_file('lab15task5output.txt'),delete_file('lab15task5output.txt'); told ),
+    tell('lab15task5output.txt'),
+    findall(List, generateLab15Task5List(List,N,K), _),
+    told,!.
+
+generateLab15Task5List(List,N,K) :-
+    Chars = [97,98,99,100,101,102],
+    length(Line,N),
+    Chars /?- 2 --/ [A,B] /-- CWAB,
+    CWAB --/ C /-- CWABC,
+    NewN is N - K - 4,
+    length(LastChars, NewN),
+    CWABC /?- NewN --/ LastChars,
+    Line <-- [A,B] -? 2,
+    Line <-- C -? K,
+    Line <-- LastChars -? 1,
+    writeString(Line),nl.
+
+generateLab15Task5List(List) :-
+    Chars = [97,98,99,100,101,102],
+    length(Line,9),
+    
+    Chars /?- 2 --/ [A,B] /-- CWAB,
+    CWAB --/ C /-- CWABC,
+    CWABC /?- 2 --/ [D,E],
+    Line <-- [A,B] -? 2,
+    Line <-- C -? 3,
+    Line <-- [D,E] -? 1,
+    writeString(Line),nl.
