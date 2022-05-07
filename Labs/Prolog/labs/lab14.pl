@@ -1,42 +1,4 @@
-:- ['lab13','library','generatorLib'].
-
-
-%чтение строки
-readString(String) :- get0(X),inputString(String,[], X).
-
-%обработка ввода
-inputString(B,B, 10) :- !.
-inputString(B,B, -1) :- !.
-inputString(Str,LocalStr, Char) :-
-    pushBack(LocalStr, Char, NewLocalStr),
-    get0(X),
-    inputString(Str, NewLocalStr, X),!.
-
-%вывод строки
-writeString([]) :- !.
-writeString([H|T]) :- put(H), writeString(T).
-
-%получить первое слово в строке и вернуть остаток строки
-getFirstWord([], Word, _, Word).
-getFirstWord([H|T], Word, Tail, LWord) :-
-    (
-        32 is H, Word = LWord, Tail = T;
-
-        pushBack(LWord,H,NewLWord),
-        getFirstWord(T,Word,Tail, NewLWord)
-    ).
-getFirstWord(List, Word, Tail) :- getFirstWord(List, Word, Tail, []).
-
-%получить все слова в строке
-getAllWords([], List, List).
-getAllWords(String, List, LocalList) :-
-    getFirstWord(String, Word, Tail),
-    pushBack(LocalList, Word, NewLocalList),
-    getAllWords(Tail, List, NewLocalList).
-getAllWords(String, List) :- getAllWords(String, List, []).
-
-writeAllWords([]).
-writeAllWords([H|T]) :- writeString(H),nl, writeAllWords(T),!.
+:- ['lab13','library','combinatorics'].
 
 %task1l
 task1_1 :- readString(X), writeString(X),write(','),writeString(X),write(','),writeString(X).
@@ -89,18 +51,6 @@ task1_5 :-
     printIndex(X,LastChar,0),!.
 
 %task2
-readLines(Lines, LocalLines) :-
-    readString(X),
-    (
-        equalLists([],X),equalLists(Lines, LocalLines);
-        pushBack(LocalLines, X, NewLocalLines),
-        readLines(Lines,NewLocalLines)
-    ).
-
-readFile(File, Lines) :-
-    see(File),
-    readLines(Lines,[]).
-
 task2_1 :- 
     readFile('lab14_task2_1input.txt', Lines), 
     mapList(lenght, Lines, Lenghts),

@@ -1,9 +1,62 @@
+writeResultInFile(Generator, FileName) :-
+    (exists_file(FileName),delete_file(FileName); told ),
+    tell(FileName),
+    findall(_, Generator, _),
+    told,!.
+
+readLines(Lines, LocalLines) :-
+    readString(X),
+    (
+        equalLists([],X),equalLists(Lines, LocalLines);
+        pushBack(LocalLines, X, NewLocalLines),
+        readLines(Lines,NewLocalLines)
+    ).
+
+readFile(File, Lines) :-
+    see(File),
+    readLines(Lines,[]).
+
+%получить первое слово в строке и вернуть остаток строки
+getFirstWord([], Word, _, Word).
+getFirstWord([H|T], Word, Tail, LWord) :-
+    (
+        32 is H, Word = LWord, Tail = T;
+
+        pushBack(LWord,H,NewLWord),
+        getFirstWord(T,Word,Tail, NewLWord)
+    ).
+getFirstWord(List, Word, Tail) :- getFirstWord(List, Word, Tail, []).
+
+%получить все слова в строке
+getAllWords([], List, List).
+getAllWords(String, List, LocalList) :-
+    getFirstWord(String, Word, Tail),
+    pushBack(LocalList, Word, NewLocalList),
+    getAllWords(Tail, List, NewLocalList).
+getAllWords(String, List) :- getAllWords(String, List, []).
+
+writeAllWords([]).
+writeAllWords([H|T]) :- writeString(H),nl, writeAllWords(T),!.
+
+%обработка ввода
+inputString(B,B, 10) :- !.
+inputString(B,B, -1) :- !.
+inputString(Str,LocalStr, Char) :-
+    pushBack(LocalStr, Char, NewLocalStr),
+    get0(X),
+    inputString(Str, NewLocalStr, X),!.
+
+%вывод строки
+writeString([]) :- !.
+writeString([H|T]) :- put(H), writeString(T).
+
+%чтение строки
+readString(String) :- get0(X),inputString(String,[], X).
+
 equalLists(L,L).
 
-inList([H|_],H).
-inList([_|T], V) :- inList(T,V).
-
-contains([H|T],V) :- inList([H|T],V).
+contains([H|_],H).
+contains([_|T], V) :- contains(T,V).
 
 %получить значение по индексу
 getValue([H|T],Index,X) :- 
@@ -11,7 +64,6 @@ getValue([H|T],Index,X) :-
     (0 is Index, X is H; NewIndex is Index - 1,getValue(T,NewIndex,X)).
 getValue([H|T],Index,X) :- 
     (0 is Index, equalLists(X, H); NewIndex is Index - 1,getValue(T,NewIndex,X)).
-
 %разворот списка
 reverseList([],Result, Local) :- Result = Local.
 reverseList([H|T],Result, Local) :-
@@ -76,7 +128,7 @@ concatenate(List1, [H|T], ResultList) :-
 allList(_, []).
 allList(Predicate, [H|T]) :-
     call(Predicate,H),
-    allList(Predicate,T),!.
+    allList(Predicate,T).
 
 char_count_in_list(List,Value,Count) :-
     foldList(
@@ -99,8 +151,7 @@ generateUniqueList(List,Result) :- generateUniqueList(List, Result, []).
 
 equal_chars_count(List,Count) :-
     generateUniqueList(List,UniqueList),
-    lenght(UniqueList,Count).
-
+    length(UniqueList,Count).
 
 all_chars_contrains(_,[]).
 all_chars_contrains(List, [H2|T2]) :-

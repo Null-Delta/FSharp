@@ -15,7 +15,7 @@ printArrayParts(List) :-
     printArrayWithStep2(List,1),
     nl,
     printArrayWithStep2(List,0).
-    
+
 %task45
 findSum([],_,_,R,R).
 findSum([H|T],A,B,R,LR) :-
@@ -55,50 +55,47 @@ calculateLists(List,L1,L2) :-
     generateList2(List,L1,L2).
 
 %task14
-inList([H|_],H).
-inList([_|T], V) :- inList(T,V).
-
 findValues :- 
     List = [_,_,_],
-    inList(List,[belocurov,_]),
-    inList(List,[rizov,_]),
-    inList(List,[chernov,_]),
-    inList(List,[_,riziy]),
-    inList(List,[_,blondin]),
-    inList(List,[_,brunet]),
-    not(inList(List,[rizov,riziy])),
-    not(inList(List,[chernov,brunet])),
+    contains(List,[belocurov,_]),
+    contains(List,[rizov,_]),
+    contains(List,[chernov,_]),
+    contains(List,[_,riziy]),
+    contains(List,[_,blondin]),
+    contains(List,[_,brunet]),
+    not(contains(List,[rizov,riziy])),
+    not(contains(List,[chernov,brunet])),
     write(List),!.
 
 %task15
 findValues2 :-
     List = [_,_,_],
-    inList(List,[_,_,white]),
-    inList(List,[_,_,blue]),
-    inList(List,[_,_,green]),
-    inList(List,[_,white,_]),
-    inList(List,[_,blue,_]),
-    inList(List,[_,green,_]),
-    inList(List,[valya,_,_]),
-    inList(List,[anya,A,A]),
-    inList(List,[natasha,green,_]),
-    not(inList(List,[valya,B,B])),
-    not(inList(List,[natasha,C,C])),
-    not(inList(List,[valya,white,_])),
-    not(inList(List,[valya,_,white])),
+    contains(List,[_,_,white]),
+    contains(List,[_,_,blue]),
+    contains(List,[_,_,green]),
+    contains(List,[_,white,_]),
+    contains(List,[_,blue,_]),
+    contains(List,[_,green,_]),
+    contains(List,[valya,_,_]),
+    contains(List,[anya,A,A]),
+    contains(List,[natasha,green,_]),
+    not(contains(List,[valya,B,B])),
+    not(contains(List,[natasha,C,C])),
+    not(contains(List,[valya,white,_])),
+    not(contains(List,[valya,_,white])),
     write(List),!.
 
 %task16
 findValues3 :-
     List = [_,_,_],
-    inList(List,[_,_,1]),
-    inList(List,[_,_,2]),
-    inList(List,[A,slesar,0]),
-    inList(List,[B,svarshik,_]),
-    inList(List,[C,tokar,E]),
-    inList(List,[boris,_,_]),
-    inList(List,[ivanov,_,_]),
-    inList(List,[semenov,_,D]),
+    contains(List,[_,_,1]),
+    contains(List,[_,_,2]),
+    contains(List,[A,slesar,0]),
+    contains(List,[B,svarshik,_]),
+    contains(List,[C,tokar,E]),
+    contains(List,[boris,_,_]),
+    contains(List,[ivanov,_,_]),
+    contains(List,[semenov,_,D]),
     D > E,
     write('слесарь: '),write(A),write(', '),
     write('сварщик: '),write(B),write(', '),
@@ -119,18 +116,18 @@ neibhor(Value1,Value2, [_,H2|T]) :- neibhor(Value1,Value2,[H2|T]),!.
 
 findValues4 :-
     List = [_,_,_,_],
-    inList(List,[butilka,_]),
-    inList(List,[stakan,_]),
-    inList(List,[kuvshin,_]),
-    inList(List,[banka,_]),
-    inList(List,[_,moloko]),
-    inList(List,[_,limonade]),
-    inList(List,[_,kvAss]),
-    inList(List,[_,voda]),
-    not(inList(List,[butilka,moloko])),
-    not(inList(List,[butilka,voda])),
-    not(inList(List,[banka,limonade])),
-    not(inList(List,[banka,voda])),
+    contains(List,[butilka,_]),
+    contains(List,[stakan,_]),
+    contains(List,[kuvshin,_]),
+    contains(List,[banka,_]),
+    contains(List,[_,moloko]),
+    contains(List,[_,limonade]),
+    contains(List,[_,kvAss]),
+    contains(List,[_,voda]),
+    not(contains(List,[butilka,moloko])),
+    not(contains(List,[butilka,voda])),
+    not(contains(List,[banka,limonade])),
+    not(contains(List,[banka,voda])),
     neibhor([stakan,_],[banka,_],List),
     neibhor([stakan,_],[_,moloko],List),
     betweenList([_,limonade],[_,kvAss],[kuvshin,_],List),
@@ -139,42 +136,42 @@ findValues4 :-
 %task18
 findValues5 :-
     List = [_,_,_,_],
-    inList(List,[voronov,_]),
-    inList(List,[pavlov,_]),
-    inList(List,[levizkiy,_]),
-    inList(List,[saharov,_]),
-    inList(List,[_,dancer]),
-    inList(List,[_,artist]),
-    inList(List,[_,singer]),
-    inList(List,[_,writer]),
-    not(inList(List,[voronov,singer])),
-    not(inList(List,[levizkiy,singer])),
-    not(inList(List,[pavlov,writer])),
-    not(inList(List,[saharov,writer])),
-    not(inList(List,[voronov,writer])),
-    not(inList(List,[pavlov,artist])),
+    contains(List,[voronov,_]),
+    contains(List,[pavlov,_]),
+    contains(List,[levizkiy,_]),
+    contains(List,[saharov,_]),
+    contains(List,[_,dancer]),
+    contains(List,[_,artist]),
+    contains(List,[_,singer]),
+    contains(List,[_,writer]),
+    not(contains(List,[voronov,singer])),
+    not(contains(List,[levizkiy,singer])),
+    not(contains(List,[pavlov,writer])),
+    not(contains(List,[saharov,writer])),
+    not(contains(List,[voronov,writer])),
+    not(contains(List,[pavlov,artist])),
     write(List),!.
 
 %task19
 findValues6 :-
     List = [_,_,_],
-    inList(List, [_,_,_,1]),
-    inList(List, [_,_,_,2]),
-    inList(List, [_,_,_,3]),
-    inList(List,[_,_,american,B]),
-    inList(List,[_,_,isralian,_]),
-    inList(List,[_,_,australian,_]),
+    contains(List, [_,_,_,1]),
+    contains(List, [_,_,_,2]),
+    contains(List, [_,_,_,3]),
+    contains(List,[_,_,american,B]),
+    contains(List,[_,_,isralian,_]),
+    contains(List,[_,_,australian,_]),
 
-    inList(List,[_,basketball,_,_]),
-    inList(List,[_,tennis,_,D]),
-    inList(List,[_,kriket,_,1]),
+    contains(List,[_,basketball,_,_]),
+    contains(List,[_,tennis,_,D]),
+    contains(List,[_,kriket,_,1]),
 
-    inList(List,[maikl,basketball,_,A]),
-    inList(List,[saimon,_,isralian,C]),
-    inList(List,[richard,_,_,_]),
+    contains(List,[maikl,basketball,_,A]),
+    contains(List,[saimon,_,isralian,C]),
+    contains(List,[richard,_,_,_]),
     not(
-        inList(List,[maikl,_,isralian,_]);
-        inList(List,[maikl,_,american,_])
+        contains(List,[maikl,_,isralian,_]);
+        contains(List,[maikl,_,american,_])
     ),
     A < B,
     C < D,
@@ -183,22 +180,22 @@ findValues6 :-
 %task20
 findValues7 :-
     List = [_,_,_],
-    inList(List,[petr,_]),
-    inList(List,[roman,_]),
-    inList(List,[sergey,_]),
-    inList(List,[_,mathemathic]),
-    inList(List,[_,chemistry]),
-    inList(List,[_,physic]),
+    contains(List,[petr,_]),
+    contains(List,[roman,_]),
+    contains(List,[sergey,_]),
+    contains(List,[_,mathemathic]),
+    contains(List,[_,chemistry]),
+    contains(List,[_,physic]),
     (
-        not(inList(List,[petr,mathemathic]));
-        inList(List,[sergey,physic])
+        not(contains(List,[petr,mathemathic]));
+        contains(List,[sergey,physic])
     ),
     (
-        inList(List,[roman,physic]);
-        inList(List,[petr,mathemathic])
+        contains(List,[roman,physic]);
+        contains(List,[petr,mathemathic])
     ),
     (
-        inList(List,[sergey,mathemathic]);
-        inList(List,[roman,physic])    
+        contains(List,[sergey,mathemathic]);
+        contains(List,[roman,physic])    
     ),
     write(List),!.

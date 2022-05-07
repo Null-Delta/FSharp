@@ -1,4 +1,4 @@
-:- ['library','lab14','generatorLib'].
+:- ['library','lab14','combinatorics'].
 
 %task1
 lab15task1 :- writeResultInFile(generateLab15Task1List(_), 'lab15task1output.txt').
@@ -107,3 +107,8 @@ generateLab15Task5List(List) :-
     Line <-- C -? 3,
     Line <-- [D,E] -? 1,
     writeString(Line),nl.
+
+% ZukTask(List,InputChars) :-
+%     lenght(InputChars, N),
+%     length(List,N),
+    
