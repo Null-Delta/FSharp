@@ -120,3 +120,41 @@ getGameltonWay(Way) :-
             Way <- Vertex
         )
     ).
+
+ generateColorsList([], 0) :- !.
+ generateColorsList(Colors, ColorsCount) :-
+    !, 
+    NextCount is ColorsCount - 1,
+    generateColorsList(NextColors, NextCount),
+    Colors ~ [ColorsCount|NextColors].
+
+ %тотально-переборный кринж
+ getChromoNum(ColorsCount) :-
+    readGraph((V,E), 'lab15_graph_input2.txt'),
+    lenght(V,MaxColorsCount),
+    between(0,(MaxColorsCount+1), ColorsCount),
+    generateColorsList(Colors,ColorsCount),
+    length(ColoredV,MaxColorsCount),
+    ColoredV @: (
+        [Vertex]>>(
+            Colors <- Vertex
+        )
+    ),
+    %лямбды наше все
+    not(
+        V ?: (
+            [Vertex]>>(
+                V ?: (
+                    [Vertex2]>>(
+                        not(Vertex is Vertex2),
+                        (V,E): Vertex--Vertex2,
+                        findIndex(V,Vertex,Ind1),
+                        findIndex(V,Vertex2,Ind2),
+                        getValue(ColoredV, Ind1, Clr1),
+                        getValue(ColoredV, Ind2, Clr2),
+                        Clr1 is Clr2
+                    )
+                )
+            )
+        )
+    ),!. 

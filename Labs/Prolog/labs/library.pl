@@ -189,3 +189,13 @@ all_chars_contrains(_,[]).
 all_chars_contrains(List, [H2|T2]) :-
     contains(List,H2),
     all_chars_contrains(List,T2).
+
+findIndex([H|T],Value,Index, LocalIndex) :-
+    (H is Value, Index is LocalIndex;NewLocalIndex is LocalIndex + 1,findIndex(T,Value,Index, NewLocalIndex)).
+findIndex(List,Value, Index) :- findIndex(List,Value,Index,0).
+
+between(X,X,Z) :- !, fail.
+between(X,Y,Z) :-
+    Z is X + 1, Z < Y;
+    NewX is X + 1,
+    between(NewX, Y, Z).

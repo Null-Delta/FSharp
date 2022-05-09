@@ -108,10 +108,6 @@ findMin([H|T],X,Z) :-
     findMin(T,X,NewZ).
 findMin([H|T],X) :- findMin([H|T],X,H).
 
-findIndex([H|T],Value,Index, LocalIndex) :-
-    (H is Value, Index is LocalIndex;NewLocalIndex is LocalIndex + 1,findIndex(T,Value,Index, NewLocalIndex)).
-findIndex(List,Value, Index) :- findIndex(List,Value,Index,0).
-
 replaceElements([],0,NewList,LocalList) :- NewList = LocalList.
 replaceElements([H|T],0,NewList,LocalList) :-
     reverseList([H|T],[NH|NT]),
