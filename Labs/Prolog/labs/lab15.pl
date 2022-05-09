@@ -121,6 +121,7 @@ getGameltonWay(Way) :-
         )
     ).
 
+%task8
  generateColorsList([], 0) :- !.
  generateColorsList(Colors, ColorsCount) :-
     !, 
@@ -158,3 +159,14 @@ getGameltonWay(Way) :-
             )
         )
     ),!. 
+
+%task9
+%красивое (не длинновое)
+findMinEdgeCovering(SubEdges) :-
+    readGraph((V,E),'lab15_graph_input2.txt'),
+    E <= SubEdges,
+    V @: (
+        [Vertex]>>(
+            (V,SubEdges): Vertex--_,!
+        )
+    ).

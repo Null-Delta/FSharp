@@ -65,6 +65,7 @@ List /?- 1 --/ [Element] :- !,List --/ Element.
 
 %выбрать несколько элементов из списка и вернуть список без данных элементов
 % <cписок элементов> /?- <кол-во элементов> --/ <выбранные элементы> /-- <список без выбранных элементов>
+List /?- 0 --/ [] /-- List :- !.
 List /?- Count --/ Elements /-- ListWithoutElements :- 
     List /?- Count --/ Elements,
     foldList(
@@ -116,6 +117,7 @@ List <-- Element -? Count :-
 
 %выбрать несколько элементов из списка и вернуть список оставшихся элементов
 % <cписок элементов> /?= <кол-во элементов> ==/ <выбранные элементы> /== <список оставшихся элементов>
+List /?= 0 ==/ [] /== List :- !.
 List /?= 1 ==/ [Element] /== ListWithoutElements :- !, List ==/ Element /== ListWithoutElements.
 [H|T] /?= Count ==/ Elements /== ListWithoutElements :- 
     NextCount is Count - 1,
