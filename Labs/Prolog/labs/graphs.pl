@@ -37,57 +37,51 @@ readGraph((V,E)) :-
 %-----чтение------
 
 :- op(1,xfy, :).
-:- op(2,xfy, --).
-:- op(2,xfy, ->).
-:- op(2,xfy, -?-).
+:- op(2,xfy, ~~).
+:- op(6,xfy, </~).
+:- op(4,xfy, --).
+:- op(3,xfy, ~>).
 
 % проверяет существует ли ребро V1-V2 в графе (V,E)
-% синтаксис:
 % <Граф с вершинами V и ребрами E> : <Первая вершина> -- <вторая вершина>
-(V,E) : V1 -- V2 :-
-    (contains(E,(V1,V2));contains(E,(V2,V1))),!.
+(V,E) : V1 -- V2 :- (E <- (V1,V2);E <- (V2,V1)).
+
+% Находит все возможные простые пути из вершины V1 в вершину V2
+% <Граф с вершинами V и ребрами E> : <Первая вершина> ~~ <вторая вершина> ~> <[путь, состоящий из номеров вершин]>
+(V,E) : V1 ~~ V1 ~> [V1] </~ _.
+
+(V,E) : V1 ~~ V2 ~> Way </~ UsedVertexes :-
+    (V,E) : V1 -- X,
+    UsedVertexes </- X,
+    (V,E): X ~~ V2 ~> NextWay </~ [X|UsedVertexes],
+    Way ~ [V1|NextWay].
+
+(V,E) : V1 ~~ V2 ~> Way :- (V,E) : V1 ~~ V2 ~> Way </~ [V1].
 
 % проверяет существует ли путь от вершины V1 в вершину V2
-% синтаксис:
-% <Граф с вершинами V и ребрами E> : <Первая вершина> -?- <вторая вершина>
-(V,E) : V1 -?- V2 :- 
-    (V,E): V1 -- V2,!;
-    (V,E): V1 -- X1, (V,E): X2 -- V2, (V,E): X1 -?- X2.
-
-% проверяет существует ли путь от вершины V1 в вершину V2
-% синтаксис:
-% <Граф с вершинами V и ребрами E> : <Первая вершина> -?- <вторая вершина>
-(V,E) : V1 -?- V2 -> Way :- 
-    (V,E): V1 -- V2, Way ~ [V1,V2];
-    (V,E): V1 -- X1,
-    (V,E): V2 -- X2, 
-
-    (V,E): X1 -?- X2 -> NextWay,
-    pushBack([V1|NextWay],V2, Way).
+% <Граф с вершинами V и ребрами E> : <Первая вершина> ~~ <вторая вершина>
+(V,E) : V1 ~~ V2 :- (V,E) : V1 ~~ V2 </~ [V1].
+(V,E) : V1 ~~ V2 </~ FindedVertexes :- (V,E): V1 -- V2, FindedVertexes </- V2.
+(V,E) : V1 ~~ V2 </~ FindedVertexes :-
+    (V,E) : V1--X,
+    FindedVertexes </- X,
+    (V,E) : X ~~ V2 </~ [X|FindedVertexes].
 
 % явзяется ли граф связанным
 is_constrain((V,E)) :-
     V ~ [H|T],
-    allList(
-        [Vertex]>>(
-            (V,E): H -?- Vertex
-        ),
-        V 
-    ),!.
+    T @: ([Vertex]>>((V,E): H ~~ Vertex)),!.
 
 % явзяется ли граф деревом
 is_tree((V,E)) :-
-    allList(
-        [Vertex]>>(
-            (V,E): Vertex--V1,
-            (V,E): Vertex--V2,
-            (V,E): V1-?-V2,
-            not(V1 is V2)
-        ),
-        V 
-    ),!.
-
-unique(X) :-
-    generateUniqueList(X,UX),
-    length(X,L),
-    length(UX,L).
+    not(
+        V ?: (
+            [Vertex]>>(
+                (V,E): Vertex--X,
+                (V,E): Vertex--Y,
+                X < Y,
+                (V,E): X ~~ Y ~> Way,
+                Way </- Vertex
+            )
+        )    
+    ).

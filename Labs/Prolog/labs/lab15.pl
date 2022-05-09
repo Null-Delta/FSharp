@@ -1,4 +1,4 @@
-:- ['library','lab14','combinatorics'].
+:- ['library','lab14','combinatorics', 'graphs'].
 
 %task1
 lab15task1 :- writeResultInFile(generateLab15Task1List(_), 'lab15task1output.txt').
@@ -108,7 +108,16 @@ generateLab15Task5List(List) :-
     Line <-- [D,E] -? 1,
     writeString(Line),nl.
 
-% ZukTask(List,InputChars) :-
-%     lenght(InputChars, N),
-%     length(List,N),
-    
+
+%task6
+generateOstovTree((V,E),Result) :-
+    E <= SubE,
+    is_constrain((V,SubE)),
+    is_tree((V,SubE)),
+    Result ~ (V,SubE).
+
+countOfOstovs :-
+    readGraph(Graph),
+    findall(Ostov, generateOstovTree(Graph, Ostov),Ostovs),
+    length(Ostovs,X),
+    write(X).
