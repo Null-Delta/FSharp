@@ -80,10 +80,10 @@ generateLab15Task4List(List) :-
 lab15task5(N,K) :-
     (exists_file('lab15task5output.txt'),delete_file('lab15task5output.txt'); told ),
     tell('lab15task5output.txt'),
-    findall(List, generateLab15Task5List(List,N,K), _),
+    findall(_, generateLab15Task5List(N,K), _),
     told,!.
 
-generateLab15Task5List(List,N,K) :-
+generateLab15Task5List(N,K) :-
     Chars = [97,98,99,100,101,102],
     length(Line,N),
     Chars /?- 2 --/ [A,B] /-- CWAB,
@@ -96,19 +96,6 @@ generateLab15Task5List(List,N,K) :-
     Line <-- LastChars -? 1,
     writeString(Line),nl.
 
-generateLab15Task5List(List) :-
-    Chars = [97,98,99,100,101,102],
-    length(Line,9),
-    
-    Chars /?- 2 --/ [A,B] /-- CWAB,
-    CWAB --/ C /-- CWABC,
-    CWABC /?- 2 --/ [D,E],
-    Line <-- [A,B] -? 2,
-    Line <-- C -? 3,
-    Line <-- [D,E] -? 1,
-    writeString(Line),nl.
-
-
 %task6
 generateOstovTree((V,E),Result) :-
     E <= SubE,
@@ -117,7 +104,19 @@ generateOstovTree((V,E),Result) :-
     Result ~ (V,SubE).
 
 countOfOstovs :-
-    readGraph(Graph),
+    readGraph(Graph, 'lab15_graph_input.txt'),
     findall(Ostov, generateOstovTree(Graph, Ostov),Ostovs),
     length(Ostovs,X),
     write(X).
+
+%task7
+getGameltonWay(Way) :-
+    readGraph((V,E), 'lab15_graph_input2.txt'),
+    V <- X,
+    write(X),
+    (V,E) : X ~~ Y ~> Way,
+    V @: (
+        [Vertex]>>(
+            Way <- Vertex
+        )
+    ).

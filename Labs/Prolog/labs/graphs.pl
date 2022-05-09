@@ -29,8 +29,8 @@ readEdges(Edges,[H|T]) :-
     Edges ~ [(V1,V2) | NextEdges].
     
 
-readGraph((V,E)) :-
-    readFile('lab15_graph_input.txt', [Vertexes|Edges]),
+readGraph((V,E), File) :-
+    readFile(File, [Vertexes|Edges]),
     readVertexes(V,Vertexes),
     readEdges(E,Edges),!.
 
@@ -44,11 +44,11 @@ readGraph((V,E)) :-
 
 % проверяет существует ли ребро V1-V2 в графе (V,E)
 % <Граф с вершинами V и ребрами E> : <Первая вершина> -- <вторая вершина>
-(V,E) : V1 -- V2 :- (E <- (V1,V2);E <- (V2,V1)).
+(_,E) : V1 -- V2 :- (E <- (V1,V2);E <- (V2,V1)).
 
 % Находит все возможные простые пути из вершины V1 в вершину V2
 % <Граф с вершинами V и ребрами E> : <Первая вершина> ~~ <вторая вершина> ~> <[путь, состоящий из номеров вершин]>
-(V,E) : V1 ~~ V1 ~> [V1] </~ _.
+(_,_) : V1 ~~ V1 ~> [V1] </~ _.
 
 (V,E) : V1 ~~ V2 ~> Way </~ UsedVertexes :-
     (V,E) : V1 -- X,
@@ -60,12 +60,7 @@ readGraph((V,E)) :-
 
 % проверяет существует ли путь от вершины V1 в вершину V2
 % <Граф с вершинами V и ребрами E> : <Первая вершина> ~~ <вторая вершина>
-(V,E) : V1 ~~ V2 :- (V,E) : V1 ~~ V2 </~ [V1].
-(V,E) : V1 ~~ V2 </~ FindedVertexes :- (V,E): V1 -- V2, FindedVertexes </- V2.
-(V,E) : V1 ~~ V2 </~ FindedVertexes :-
-    (V,E) : V1--X,
-    FindedVertexes </- X,
-    (V,E) : X ~~ V2 </~ [X|FindedVertexes].
+(V,E) : V1 ~~ V2 :- (V,E) : V1 ~~ V2 ~> _ </~ [V1].
 
 % явзяется ли граф связанным
 is_constrain((V,E)) :-

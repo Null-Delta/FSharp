@@ -36,7 +36,7 @@
 
 L ~ L.
 
-List <= [].
+_ <= [].
 List <= X :-
     length(List,N),
     C <? N,
