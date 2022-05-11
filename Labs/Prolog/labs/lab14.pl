@@ -222,6 +222,63 @@ task3_16 :-
     concatenate(PreResult, Reds, Result),
     writeAllWords(Result),!.
 
+%task6
+lab14task6_1(Chars,K) :-
+    writeResultInFile(generateTask6_1List(Chars,K), 'lab14_task6_1output.txt').
+    
+generateTask6_1List(Chars,K) :-
+    Count <? K,
+    Chars /?~ Count ~~/ SelectedChars /~~ _,
+    length(CharsCount,Count),
+    CharsCount <<- K,
+    length(List,K),
+    List <~~ SelectedChars ~? CharsCount,
+    write(List),nl.
+
+lab14task6_2(Chars) :-
+    writeResultInFile(generateTask6_2List(Chars), 'lab14_task6_2output.txt').
+    
+generateTask6_2List(Chars) :-
+    length(Chars,N),
+    Chars /?~ N ~~/ SelectedChars /~~ _,
+    write(SelectedChars),nl.
+
+lab14task6_3(Chars,K) :-
+    writeResultInFile(generateTask6_3List(Chars,K), 'lab14_task6_3output.txt').
+    
+generateTask6_3List(Chars,K) :-
+    Chars /?~ K ~~/ SelectedChars /~~ _,
+    write(SelectedChars),nl.
+
+lab14task6_4(Chars) :-
+    writeResultInFile(generateTask6_4List(Chars), 'lab14_task6_4output.txt').
+    
+generateTask6_4List(Chars) :-
+    Chars <= SubChars,
+    write(SubChars),nl.
+
+lab14task6_5(Chars,K) :-
+    writeResultInFile(generateTask6_5List(Chars,K), 'lab14_task6_5output.txt').
+    
+generateTask6_5List(Chars,K) :-
+    Chars /?- K --/ SelectedChars,
+    write(SelectedChars),nl.
+
+lab14task6_6(Chars,K) :-
+    writeResultInFile(generateTask6_6List(Chars,K), 'lab14_task6_6output.txt').
+    
+generateTask6_6List(Chars,K) :-
+    length(Chars,N),
+    Cnt is min(K,N),
+    CharsCount <? (Cnt + 1),
+    length(SelectedChars, CharsCount),
+    length(PlaceCounts,CharsCount),
+    length(Result, K),
+    Chars /?= CharsCount ==/ SelectedChars /== _,
+    PlaceCounts <<- K,
+    Result <== SelectedChars =? PlaceCounts,
+    write(Result),nl.
+
 %task7
 lab14task7 :-
     writeResultInFile(generateTask7List(_), 'lab14_task7output.txt').

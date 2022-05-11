@@ -17,14 +17,23 @@
 % ——————————————————————————————————
 
 :- op(1,xfy, --/).
+:- op(1,xfy, ~~/).
 :- op(2,xfy, /--).
+:- op(2,xfy, /~~).
 :- op(3,xfy, /?-).
+:- op(3,xfy, /?~).
+
 :- op(4,xfy, <--).
 :- op(5,xfy, -?).
+
+:- op(4,xfy, <~~).
+:- op(5,xfy, ~?).
 :- op(6,xfy, ~).
 
 :- op(7,xfy, ==/).
 :- op(8,xfy, /==).
+:- op(2,xfy, /=>).
+
 :- op(9,xfy, /?=).
 :- op(10,xfy, <==).
 :- op(11,xfy, =?).
@@ -111,9 +120,12 @@ List <-- Element -? Count :-
 
 %выбрать один элемент из списка и вернуть список элементов, идущих после выбранного
 % <cписок элементов> ==/ <выбранный элемент> /== <список оставшихся элементов>
-[H|T] ==/ Element /== LastElementsList :- 
+[H|T] ==/ Element /=> LastElementsList :- 
     Element is H, LastElementsList ~ T;
-    T ==/ Element /== LastElementsList.
+    T ==/ Element /=> LastElementsList.
+
+
+List ==/ Element /== ListWithoutElement :- List --/ Element,removeElement(List,Element,ListWithoutElement).
 
 %выбрать несколько элементов из списка и вернуть список оставшихся элементов
 % <cписок элементов> /?= <кол-во элементов> ==/ <выбранные элементы> /== <список оставшихся элементов>
@@ -208,3 +220,17 @@ c(N,Chars) :-
     PlaceCounts <<- N,
     Result <== SelectedChars =? PlaceCounts,
     write(Result),nl.
+
+
+List /?~ 0 ~~/ [] /~~ List :- !.
+List /?~ Count ~~/ Elements /~~ ListWithoutElements :- 
+    List --/ Head /-- Last,
+    NewCount is Count - 1,
+    Last /?~ NewCount ~~/ Tail /~~ ListWithoutElements,
+    Elements ~ [Head|Tail].
+
+_ <~~ [] ~? [] :- !.
+List <~~ [El] ~? [Cnt] :- !, List <-- El -? Cnt.
+List <~~ [ElH|ElT] ~? [CntH|CntT] :-
+    List <-- ElH -? CntH,
+    List <~~ ElT ~? CntT.
